@@ -25,6 +25,14 @@ export class Duration {
     return this.milliseconds / (24 * 60 * 60 * 1000);
   }
 
+  add(duration: Duration) {
+    return new Duration(this.milliseconds + duration.milliseconds);
+  }
+
+  mul(factor: number) {
+    return new Duration(this.milliseconds * factor);
+  }
+
   static fromMilliseconds(milliseconds: number) {
     return new Duration(milliseconds);
   }

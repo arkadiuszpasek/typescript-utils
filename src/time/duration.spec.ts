@@ -53,4 +53,44 @@ describe("Duration", () => {
     const duration = Duration.fromDays(1);
     expect(duration.toMilliseconds).toBe(24 * 60 * 60 * 1000);
   });
+
+  it("should multiply duration by a positive factor", () => {
+    const duration = Duration.fromMilliseconds(1000);
+    const result = duration.mul(3);
+    expect(result.toMilliseconds).toBe(3000);
+  });
+
+  it("should multiply duration by zero", () => {
+    const duration = Duration.fromMilliseconds(1000);
+    const result = duration.mul(0);
+    expect(result.toMilliseconds).toBe(0);
+  });
+
+  it("should multiply duration by a fractional factor", () => {
+    const duration = Duration.fromMilliseconds(1000);
+    const result = duration.mul(0.5);
+    expect(result.toMilliseconds).toBe(500);
+  });
+
+  it("should add two durations", () => {
+    const duration1 = Duration.fromMilliseconds(1000);
+    const duration2 = Duration.fromMilliseconds(2000);
+    const result = duration1.add(duration2);
+    expect(result.toMilliseconds).toBe(3000);
+  });
+
+  it("should handle mixed unit addition", () => {
+    const duration1 = Duration.fromSeconds(30);
+    const duration2 = Duration.fromMinutes(1);
+    const duration3 = Duration.fromHours(1);
+    const result = duration1.add(duration2).add(duration3);
+    expect(result.toMilliseconds).toBe(30 * 1000 + 60 * 1000 + 60 * 60 * 1000);
+  });
+
+  it("should add a duration of zero", () => {
+    const duration1 = Duration.fromMilliseconds(1000);
+    const duration2 = Duration.fromMilliseconds(0);
+    const result = duration1.add(duration2);
+    expect(result.toMilliseconds).toBe(1000);
+  });
 });
